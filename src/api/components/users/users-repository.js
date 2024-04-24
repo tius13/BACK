@@ -33,6 +33,22 @@ async function createUser(name, email, password) {
 }
 
 /**
+ * Checking if email is available to use
+
+ * @param {string} email - Email
+ * @returns {Promise}
+ */
+async function checkEmailAvailable(email) {
+  const users = User.find({});
+  for (let i = 0; i < users.length; i += 1) {
+    if (users[i].email === email) {
+      return false;
+    }
+    return true;
+  }
+}
+
+/**
  * Update existing user
  * @param {string} id - User ID
  * @param {string} name - Name
@@ -66,6 +82,7 @@ module.exports = {
   getUsers,
   getUser,
   createUser,
+  checkEmailAvailable,
   updateUser,
   deleteUser,
 };

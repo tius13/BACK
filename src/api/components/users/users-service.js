@@ -62,6 +62,16 @@ async function createUser(name, email, password) {
 }
 
 /**
+ * Check if email available
+ * @param {string} email - Email
+ * @returns {boolean}
+ */
+async function emailAvailable(email) {
+  const emailChecking = usersRepository.checkEmailAvailable(email);
+  return emailChecking;
+}
+
+/**
  * Update existing user
  * @param {string} id - User ID
  * @param {string} name - Name
@@ -109,6 +119,7 @@ async function deleteUser(id) {
 
 module.exports = {
   getUsers,
+  emailAvailable,
   getUser,
   createUser,
   updateUser,
