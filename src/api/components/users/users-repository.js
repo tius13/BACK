@@ -38,16 +38,31 @@ async function createUser(name, email, password) {
  * @param {string} email - Email
  * @returns {Promise}
  */
+// Fungsi untuk memeriksa ketersediaan alamat email
 async function checkEmailAvailable(email) {
-  const users = User.find({});
-  for (let i = 0; i < users.length; i += 1) {
-    if (users[i].email === email) {
-      return false;
-    }
-    return true;
+  try {
+    const users = await User.find({ email: email });
+    return users.length === 0; // Mengembalikan true jika tidak ada pengguna dengan alamat email tersebut
+  } catch (error) {
+    console.error('Error:', error);
+    return false; // Mengembalikan false jika terjadi kesalahan saat mencari pengguna
   }
 }
 
+// Contoh penggunaan
+const email = 'contoh@contoh.com';
+
+checkEmailAvailable(email)
+  .then((isAvailable) => {
+    if (isAvailable) {
+      console.log('Alamat email tersedia.');
+    } else {
+      console.log('Email already aken. Please choose another one.');
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 /**
  * Update existing user
  * @param {string} id - User ID

@@ -51,7 +51,7 @@ async function createUser(request, response, next) {
     const email = request.body.email;
     const password = request.body.password;
 
-    const emailCheck = await usersService.emailCheck(email);
+    const emailCheck = await usersService.emailAvailable(email);
     if (!emailCheck) {
       throw errorResponder(
         errorTypes.EMAIL_ALREADY_TAKEN,
@@ -86,7 +86,7 @@ async function updateUser(request, response, next) {
     const name = request.body.name;
     const email = request.body.email;
 
-    const emailCheck = await usersService.emailCheck(email);
+    const emailCheck = await usersService.emailAvailable(email);
     if (!emailCheck) {
       throw errorResponder(
         errorTypes.EMAIL_ALREADY_TAKEN,
