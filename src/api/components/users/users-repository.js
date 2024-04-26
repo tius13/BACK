@@ -22,13 +22,15 @@ async function getUser(id) {
  * @param {string} name - Name
  * @param {string} email - Email
  * @param {string} password - Hashed password
+ * @param {string} passwordConfirm - Hashed password
  * @returns {Promise}
  */
-async function createUser(name, email, password) {
+async function createUser(name, email, password, passwordConfirm) {
   return User.create({
     name,
     email,
     password,
+    passwordConfirm,
   });
 }
 
@@ -57,7 +59,7 @@ checkEmailAvailable(email)
     if (isAvailable) {
       console.log('Alamat email tersedia.');
     } else {
-      console.log('Email already aken. Please choose another one.');
+      console.log('Email already taken. Please choose another one.');
     }
   })
   .catch((error) => {

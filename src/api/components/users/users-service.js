@@ -46,11 +46,12 @@ async function getUser(id) {
  * @param {string} name - Name
  * @param {string} email - Email
  * @param {string} password - Password
+ * @param {string} passwordConfirm - Hashed password
  * @returns {boolean}
  */
-async function createUser(name, email, password) {
+async function createUser(name, email, password, passwordConfirm) {
   // Hash password
-  const hashedPassword = await hashPassword(password);
+  const hashedPassword = await hashPassword(password, passwordConfirm);
 
   try {
     await usersRepository.createUser(name, email, hashedPassword);
@@ -66,6 +67,7 @@ async function createUser(name, email, password) {
  * @param {string} email - Email
  * @returns {boolean}
  */
+
 async function emailAvailable(email) {
   const emailChecking = usersRepository.checkEmailAvailable(email);
   return emailChecking;
